@@ -1,0 +1,169 @@
+{% extends 'inforet/base.html' %}
+{% block title %} Look Up {% endblock %}
+
+
+{% block body %}
+{% load static %}
+
+<title> Look Up </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<style>
+        .news {
+            margin-top: 20px;
+            width: 100%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+
+        .news-info {
+            position: relative;
+            left: 30px;
+            margin-left: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .url {
+            font-size: 12px;
+            color: #15805f;
+            overflow: hidden;
+        }
+
+        .title {
+            overflow: hidden;
+        }
+
+        #summary {
+            line-height: 1.2em;
+            height: 3.6em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #publish-date {
+            font-size: 12px;
+            color: dimgrey;
+            overflow: hidden;
+        }
+
+        #container {
+            width: 140px;
+            height: 140px;
+            display: table;
+            float: left;
+            left: 10px;
+            margin-left: 10px;
+            top: -1%;
+        }
+
+        #container .image-container {
+            text-align: center;
+            vertical-align: middle;
+            display: table-cell;
+        }
+
+        #container .image-container img {
+            max-width: 140px;
+            max-height: 140px;
+        }
+
+        .page {
+            display: flex;
+            flex-wrap: wrap;
+            height: 100%;
+            width: 80%;
+            padding-top: 50px;
+        }
+
+        .content {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .pagination {
+            margin-left: 2%;
+        }
+
+        #time-sort {
+            position: absolute;
+            right:250px;
+            top: 15px;
+            color: white;
+        }
+
+
+
+        @media only screen and (max-width: 600px) {
+
+        }
+
+        /* Desktop Styles */
+        @media only screen and (min-width: 600px) {
+
+
+        }
+
+
+
+</style>
+
+
+<div class='page'>
+    <a id="time-sort" href="{% url 'inforet:time_sort' %}"> مرتب برحسب زمان انتشار </a>
+    {% load readInputFile %}
+    {% for x in form %}
+    <span class="news">
+
+            <div class='content' id="container">
+                <div class="image-container">
+                    <img src="{% get_thumbnail x %}"/>
+                </div>
+            </div>
+
+            <div class="news-info">
+                <a href="{% url 'inforet:news' doc_id=x %}" class="title">{% get_title x as title %} {{ title }}</a>
+                <div class="url">{% get_url x as url %} {{ url }}</div>
+                <div id="summary">{% get_related_content x indexList forloop.counter as relcont %}{{ relcont|safe }}</div>
+                <div id="publish-date">{% get_publish_date x as publish_date %} {{ publish_date }}</div>
+            </div>
+
+        </span>
+    {% endfor %}
+
+    {% if form.has_other_pages %}
+    <ul class="pagination">
+        {% if form.has_previous %}
+        <li><a href="{% url 'inforet:other_page' other_page=form.previous_page_number %}">&laquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in form.paginator.page_range %}
+        {% if form.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href="{% url 'inforet:other_page' other_page=i %}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if form.has_next %}
+        <li><a href="{% url 'inforet:other_page' other_page=form.next_page_number %}">&raquo;</a></li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+
+</div>
+
+
+
+
+{% endblock %}

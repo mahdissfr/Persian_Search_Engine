@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Look it up {% endblock %}</title>
+
+    <!--Load the path to ur static files-->
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{% static 'inforet/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .form-group input[type=text] {
+            width: 325px;
+            position: absolute;
+            left: 60px;
+            top: 8px;
+        }
+
+
+        .material-icons {
+            vertical-align: -30%;
+        }
+
+
+        .searchbar .btn {
+            background: none;
+            position: absolute;
+            border: none;
+            top: 7px;
+            left: 345px;
+
+        }
+
+        .searchbar .btn:hover {
+            color: #25acc2;
+        }
+
+
+        .navbar {
+            border-radius: 0;
+            background-color: rgba(47, 42, 61, 0.87);
+            width: 100%;
+            transition: 0.04ms;
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .logo{
+            position: absolute;
+            left:14px;
+            top: 10px;
+            height: 30px;
+        }
+
+        .navbar-brand:hover {
+            color: rgba(255, 255, 184, 0.57);
+        }
+
+        .selector1{
+            position: absolute;
+            right:14px;
+            top: 15px;
+            color: white;
+        }
+
+        .selector2{
+            position: absolute;
+            right:138px;
+            top: 15px;
+            color: white;
+        }
+
+        @media screen and (max-width: 600px) {
+
+        }
+
+        @media only screen and (min-width: 600px) {
+
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar ">
+    <div class="container-fluid">
+
+        <a href="{% url 'inforet:similarityHomepage' %}" class="navbar-brand"><img class="logo" src="../../static/inforet/images/magni/vector/isolated-monochrome-white.svg"/></a>
+
+
+        <span class="searchbar">
+            <form class="navbar-form navbar-left" role="search" action="{% url 'inforet:clusterIndex' %}" method="GET">
+                <span class="form-group">
+                    <input  type="text" class="form-control"  name="query" placeholder="Search..">
+                </span>
+                <button type="submit" class=" btn btn-default"><i class="material-icons">search</i></button>
+                <a class="selector1" href="{% url 'inforet:similarityHomepage' %}">جستجو براساس شباهت</a>
+                <a class="selector2" href="{% url 'inforet:simpleHomepage' %}">جستجو ساده</a>
+            </form>
+        </span>
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
+</body>
+</html>

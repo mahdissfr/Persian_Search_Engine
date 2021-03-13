@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} DocUp {% endblock %}</title>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{% static 'inforet/style.css' %}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+
+        .searchbar {
+            position: absolute;
+            top: 300px;
+            left: 370px;
+
+        }
+
+        .form-group input[type=text] {
+            width: 325px;
+            position: absolute;
+        }
+
+
+        .searchbar .btn {
+            background: none;
+            position: absolute;
+            border: none;
+            left: 475px;
+            top: 17px;
+        }
+
+        .searchbar .btn:hover {
+            color: #25acc2;
+        }
+
+
+        #container {
+            margin-top: 20px;
+            margin-bottom: 10px;
+
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 200px;
+            position: absolute;
+            left: 520px;
+        }
+
+        #container .image-container img {
+            max-width: 200px;
+        }
+
+
+        body{
+            background-color: rgba(47, 42, 61, 0.87);
+        }
+
+        .selector1{
+            position: absolute;
+            top:370px;
+            right:410px;
+            color: white;
+        }
+
+        .selector2{
+            position: absolute;
+            top:390px;
+            right:410px;
+            color: white;
+        }
+
+
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+<div class='img-content' id="container">
+    <div class="image-container">
+        <img class="center logo" src="../../static/inforet/images/magni/vector/default-monochrome-white.svg"/>
+    </div>
+</div>
+
+<!--Items-->
+<div class="searchbar ">
+    <form class="navbar-form navbar-left" role="search" id="search-form" name="search-form" action="{% url 'inforet:clusterIndex' %}" method="GET">
+        <div class="form-group ">
+            <input style="width: 500px" type="text" class="form-control" name="query" value="">
+        </div>
+        <button type="submit" class="btn btn-default"><i class="material-icons">search</i></button>
+    </form>
+</div>
+
+<a class="selector1" href="{% url 'inforet:similarityHomepage' %}">جستجو براساس شباهت</a>
+<a class="selector2" href="{% url 'inforet:simpleHomepage' %}">جستجو ساده</a>
+
+
+</body>
+</html>

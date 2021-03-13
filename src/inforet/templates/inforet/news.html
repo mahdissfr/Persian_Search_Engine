@@ -1,0 +1,146 @@
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+
+    #more {
+        display: none;
+        text-align: right;
+    }
+
+    #container {
+        margin-top: 20px;
+        margin-bottom: 10px;
+
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #container .image-container img {
+        max-width: 100px;
+        max-height: 100px;
+        min-width: 30%;
+    }
+
+    .news {
+        width: 70%;
+        position: absolute;
+        right: 5%;
+        padding: 80px;
+    }
+
+
+    .news-info {
+        position: relative;
+        margin-left: 10px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .url {
+        font-size: 12px;
+        color: #116549;
+        overflow: hidden;
+    }
+
+    .title {
+        overflow: hidden;
+        color: #3d3b36;
+        font-weight: bold;
+        font-size: 24px;
+        padding: 8px;
+        border-bottom: 3px solid #ab3e31;
+        border-bottom-right-radius: 10%;
+        border-bottom-left-radius: 10%;
+    }
+
+    #summary {
+        overflow: hidden;
+    }
+
+    #publish-date {
+        font-size: 12px;
+        color: dimgrey;
+        overflow: hidden;
+    }
+
+    .read-more {
+        overflow: hidden;
+        margin-top: 5px;
+        float: right;
+        background: none;
+        border: none;
+        color: rgba(51, 82, 242, 0.85);
+        font-weight: bold;
+    }
+
+    .read-more:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #3352f2;
+    }
+
+    .page {
+        height: 100%;
+        text-align: right;
+        position: absolute;
+        width: 70%;
+        right: 15%;
+    }
+
+
+
+
+</style>
+
+
+<script>
+    function myFunction() {
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
+
+        if (btnText.innerHTML === "مشاهده خبر") {
+            btnText.innerHTML = "مشاهده خلاصه خبر";
+            moreText.style.display = "inline";
+        } else {
+            btnText.innerHTML = "مشاهده خبر";
+            moreText.style.display = "none";
+        }
+    }
+</script>
+
+{% load readInputFile %}
+<body>
+<div class="page">
+     <span class="news">
+            <div class="title">{% get_title doc_id as title %} {{ title }}</div>
+            <div class='img-content' class="container">
+                <div class="image-container">
+                    <img class="center" src="{% get_thumbnail doc_id %}"/>
+                </div>
+            </div>
+
+         <div class="news-info">
+                <div id="summary">{% get_summary doc_id as summary %} {{ summary }}</div><br><br>
+                    <span id="more">
+                        {% get_content doc_id as content %} {{ content|safe }}<br><br>
+                    </span>
+
+                <button class="read-more" onclick="myFunction()" id="myBtn">مشاهده خبر</button><br><br>
+                <div id="url">source : {% get_url doc_id as url %} {{ url }}</div>
+                <div id="publish-date">{% get_publish_date doc_id as publish_date %} {{ publish_date }}</div>
+            </div>
+
+        </span>
+</div>
+
+
+
+
+</body>
